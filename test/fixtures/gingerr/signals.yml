@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+signal_1:
+  app: app_monkey
+  type: Gingerr::ErrorSignal
+  pid: 12
+
+signal_2:
+  app: app_monkey
+  type: Gingerr::ErrorSignal
+  pid: 13
+
+signal_3:
+  app: app_monkey
+  type: Gingerr::SuccessSignal
+  pid: 14
+
+signal_4:
+  app: app_jaguar
+  type: Gingerr::SuccessSignal
+  pid: 140
+
+signal_5:
+  app: app_jaguar
+  type: Gingerr::ErrorSignal
+  pid: 142
+
+signal_6:
+  app: app_elephant
+  type: Gingerr::SuccessSignal
+  pid: 169
+
+signal_7:
+  app: app_elephant
+  type: Gingerr::SuccessSignal
+  pid: 170
+
+signal_8:
+  app: app_elephant
+  type: Gingerr::ErrorSignal
+  pid: 171
+
+signal_9:
+  app: app_elephant
+  type: Gingerr::ErrorSignal
+  pid: 172
+
+
+
