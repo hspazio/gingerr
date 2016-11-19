@@ -1,6 +1,8 @@
 # Gingerr
 Short description and motivation.
 
+[![Code Climate](https://codeclimate.com/github/hspazio/gingerr/badges/gpa.svg)](https://codeclimate.com/github/hspazio/gingerr)
+
 ## Usage
 How to use my plugin.
 
