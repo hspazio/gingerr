@@ -4,50 +4,59 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-signal_1:
+signal_monkey_1:
   app: app_monkey
   type: Gingerr::ErrorSignal
   pid: 12
+  created_at: <%= 48.hours.ago.to_datetime %>
 
-signal_2:
+signal_monkey_2:
   app: app_monkey
   type: Gingerr::ErrorSignal
   pid: 13
+  created_at: <%= 30.hours.ago.to_datetime %>
 
-signal_3:
+signal_monkey_3:
   app: app_monkey
   type: Gingerr::SuccessSignal
   pid: 14
+  created_at: <%= 12.hours.ago.to_datetime %>
 
-signal_4:
+signal_jaguar_1:
   app: app_jaguar
   type: Gingerr::SuccessSignal
   pid: 140
+  created_at: <%= 40.hours.ago.to_datetime %>
 
-signal_5:
+signal_jaguar_2:
   app: app_jaguar
   type: Gingerr::ErrorSignal
   pid: 142
+  created_at: <%= 4.hours.ago.to_datetime %>
 
-signal_6:
+signal_elephant_1:
   app: app_elephant
   type: Gingerr::SuccessSignal
   pid: 169
+  created_at: <%= 41.hours.ago.to_datetime %>
 
-signal_7:
+signal_elephant_2:
   app: app_elephant
   type: Gingerr::SuccessSignal
   pid: 170
+  created_at: <%= 14.hours.ago.to_datetime %>
 
-signal_8:
+signal_elephant_3:
   app: app_elephant
   type: Gingerr::ErrorSignal
   pid: 171
+  created_at: <%= 12.hours.ago.to_datetime %>
 
-signal_9:
+signal_elephant_4:
   app: app_elephant
   type: Gingerr::ErrorSignal
   pid: 172
+  created_at: <%= 1.hours.ago.to_datetime %>
 
 
 

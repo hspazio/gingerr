@@ -16,5 +16,16 @@ module Gingerr
     def current_signal
       @current_signal ||= recent_signals.take
     end
+
+    def signal_frequency
+      signals = recent_signals
+      if (count_signals = signals.count)
+        (signals.first.created_at - signals.last.created_at).to_f / count_signals
+      end
+    end
+
+    def signal_frequency_in_hours
+      "#{(signal_frequency / 3600)} sig/h"
+    end
   end
 end

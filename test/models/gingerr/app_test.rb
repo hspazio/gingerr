@@ -43,5 +43,12 @@ module Gingerr
       app = gingerr_apps(:app_elephant)
       assert_kind_of Time, app.current_signal_created_at
     end
+
+    test 'calculate signal frequency' do
+      app = gingerr_apps(:app_elephant)
+      freq = app.signal_frequency_in_hours
+      assert_match /\d+ sig\/h/, freq
+      assert_not_equal '0.0 sig/h', freq
+    end
   end
 end

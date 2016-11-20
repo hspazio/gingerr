@@ -7,6 +7,7 @@
       <th>ID</th>
       <th>Name</th>
       <th>State</th>
+      <th>Signal frequency</th>
       <th>Last signal</th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
         <td><%= app.id %></td>
         <td><%= link_to app.name, app_path(app) %></td>
         <td><%= signal_type app.current_signal %></td>
+        <td><%= app.signal_frequency_in_hours %></td>
         <td><%= time_ago_in_words app.current_signal_created_at %> </td>
       </tr>
     <% end %>
