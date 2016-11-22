@@ -15,6 +15,10 @@ module Gingerr
       self.class == Gingerr::ErrorSignal
     end
 
+    def success?
+      !error?
+    end
+
     def state
       error? ? :error : :success
     end

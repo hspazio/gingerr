@@ -1,12 +1,13 @@
 <h1>Dashboard</h1>
 
-<h3>Apps</h3>
+<h3><i class="fa fa-cogs"></i> Apps</h3>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
       <th>State</th>
+      <th></th>
       <th>Signal frequency</th>
       <th>Last signal</th>
     </tr>
@@ -17,7 +18,10 @@
         <td><%= app.id %></td>
         <td><%= link_to app.name, app_path(app) %></td>
         <td><%= signal_type app.current_signal %></td>
-        <td><%= app.signal_frequency_in_hours %></td>
+        <td><% if app.require_alert? %>
+              <i class="fa fa-bell" title="alert sent"></i>
+          <% end %></td>
+        <td><%= distance_of_time_in_words app.signal_frequency %></td>
         <td><%= time_ago_in_words app.current_signal_created_at %> </td>
       </tr>
     <% end %>

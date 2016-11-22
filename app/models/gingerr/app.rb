@@ -1,5 +1,7 @@
 module Gingerr
   class App < ApplicationRecord
+    PERCENT_OVERTIME = 1.1
+
     has_many :signals
     has_many :recent_signals, -> { recent(10) }, class_name: 'Gingerr::Signal'
 
@@ -26,6 +28,10 @@ module Gingerr
 
     def signal_frequency_in_hours
       "#{(signal_frequency / 3600)} sig/h"
+    end
+
+    def require_alert?
+      current_signal.success? && signal_frequency * PERCENT_OVERTIME < Time.zone.now - current_signal_created_at
     end
   end
 end

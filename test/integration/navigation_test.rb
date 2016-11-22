@@ -5,5 +5,12 @@ class NavigationTest < ActionDispatch::IntegrationTest
     get '/gingerr'
     assert_response :success
   end
+
+  test 'should display signal page' do
+    signal = gingerr_signals(:signal_monkey_1)
+    get "/gingerr/signals/#{signal.id}"
+
+    assert_response :success
+  end
 end
 
