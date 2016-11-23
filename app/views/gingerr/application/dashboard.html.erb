@@ -1,31 +1,36 @@
 <h1>Dashboard</h1>
-
-<h3><i class="fa fa-cogs"></i> Apps</h3>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>State</th>
-      <th></th>
-      <th>Signal frequency</th>
-      <th>Last signal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @apps.each do |app| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-cogs"></i> Apps</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <thead>
       <tr>
-        <td><%= app.id %></td>
-        <td><%= link_to app.name, app_path(app) %></td>
-        <td><%= signal_type app.current_signal %></td>
-        <td><% if app.require_alert? %>
-              <i class="fa fa-bell" title="alert sent"></i>
-          <% end %></td>
-        <td><%= distance_of_time_in_words app.signal_frequency %></td>
-        <td><%= time_ago_in_words app.current_signal_created_at %> </td>
+        <th>#</th>
+        <th>Name</th>
+        <th>State</th>
+        <th></th>
+        <th>Signal frequency</th>
+        <th>Last signal</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+      <% @apps.each do |app| %>
+          <tr>
+            <td><%= app.id %></td>
+            <td><%= link_to app.name, app_path(app) %></td>
+            <td><%= signal_type app.current_signal %></td>
+            <td><% if app.require_alert? %>
+                  <i class="fa fa-bell" title="alert sent"></i>
+              <% end %></td>
+            <td><%= distance_of_time_in_words app.signal_frequency %></td>
+            <td><%= time_ago_in_words app.current_signal_created_at %> </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <%= render partial: 'gingerr/signals/table', locals: { signals: @signals, title: 'Signals' } %>

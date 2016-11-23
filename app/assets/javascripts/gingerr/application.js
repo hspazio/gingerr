@@ -13,4 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require syntax-highlighter-rails/shCore
+//= require syntax-highlighter-rails/shBrushRuby
+//= require syntax-highlighter-rails/shBrushPlain
 //= require_tree .
+
+$(document).ready(function() {
+    SyntaxHighlighter.all();
+});

@@ -17,3 +17,4 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem "font-awesome-rails"
 gem 'simplecov', :require => false, :group => :test
+gem 'syntax-highlighter-rails'

@@ -1,10 +1,138 @@
-<h3>Signal: <%= @signal.id %> <%= signal_type @signal %></h3>
+<div class="row">
+  <div class="col-md-8">
+    <h3>Signal: <%= link_to @signal.app.name, app_path(@signal.app) %> / <%= @signal.id %> <%= signal_type @signal %></h3>
+    <p>
+      Received in <%= time_tag @signal.created_at %> (<%= time_ago_in_words(@signal.created_at) %>)
+    </p>
+  </div>
+  <div class="col-md-4">
+    <% if @signal.error? %>
+      <button class="btn btn-primary"><i class="fa fa-thumb-tack"></i> Create Ticket</button>
+      <button class="btn btn-success"><i class="fa fa-check"></i> Mark as Resolved</button>
+    <% end %>
+  </div>
+</div>
 
-<h4>Endpoint</h4>
-<dl class="endpoint dl-horizontal">
-  <dt>#</dt><dd><%= @signal.endpoint.id %></dd>
-  <dt>IP</dt><dd><%= @signal.endpoint.ip %></dd>
-  <dt>Hostname</dt><dd><%= @signal.endpoint.hostname %></dd>
-  <dt>Login</dt><dd><%= @signal.endpoint.login %></dd>
-</dl>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-television"></i> Endpoint</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="endpoint dl-horizontal">
+          <dt>#</dt><dd><%= @signal.endpoint.id %></dd>
+          <dt>IP</dt><dd><%= @signal.endpoint.ip %></dd>
+          <dt>Hostname</dt><dd><%= @signal.endpoint.hostname %></dd>
+          <dt>Login</dt><dd><%= @signal.endpoint.login %></dd>
+        </dl>
+        </table>
+      </div>
+    </div>
+  </div>
 
+  <% if @signal.error? %>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-exclamation-circle"></i> Error info</h3>
+      </div>
+      <div class="panel-body">
+        <%= link_to 'ActiveRecord::StatementInvalid', nil %>: Could not find table 'gingerr_apps'</h4>
+        <p>sqlite3_adapter.rb <i class="fa fa-chevron-right"></i> 429 <i class="fa fa-chevron-right"></i> #table_structure</p>
+
+        <dl class="endpoint dl-horizontal">
+          <dt>First Seen</dt><dd><%= time_tag 2.months.ago %></dd>
+          <dt>Last Seen</dt><dd><%= time_tag 1.hour.ago %></dd>
+          <dt>Occurrences</dt><dd>5</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<% if @signal.error? %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-file-text"></i> Stacktrace</h3>
+      </div>
+      <div class="panel-body">
+        <pre class="brush: text">
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:429:in `table_structure'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:304:in `columns'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:770:in `column_names'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:762:in `timestamp_column_names'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:640:in `block in table_rows'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:634:in `each'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:634:in `map'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:634:in `table_rows'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:542:in `block (3 levels) in create_fixtures'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:540:in `each'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:540:in `block (2 levels) in create_fixtures'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/abstract/database_statements.rb:232:in `block in transaction'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/abstract/transaction.rb:189:in `within_new_transaction'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/abstract/database_statements.rb:232:in `transaction'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:538:in `block in create_fixtures'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/abstract_adapter.rb:348:in `disable_referential_integrity'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/fixtures.rb:523:in `create_fixtures'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/railties/databases.rake:219:in `block (3 levels) in <top (required)>'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:248:in `call'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:248:in `block in execute'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:243:in `each'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:243:in `execute'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:187:in `block in invoke_with_call_chain'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb:211:in `mon_synchronize'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:180:in `invoke_with_call_chain'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:173:in `invoke'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:152:in `invoke_task'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:108:in `block (2 levels) in top_level'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:108:in `each'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:108:in `block in top_level'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:117:in `run_with_threads'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:102:in `top_level'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/railties-5.0.0.1/lib/rails/commands/rake_proxy.rb:13:in `block in run_rake_task'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:178:in `standard_exception_handling'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/railties-5.0.0.1/lib/rails/commands/rake_proxy.rb:10:in `run_rake_task'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/railties-5.0.0.1/lib/rails/commands/commands_tasks.rb:51:in `run_command!'
+          /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/railties-5.0.0.1/lib/rails/commands.rb:18:in `<top (required)>'
+          bin/rails:4:in `require'
+          bin/rails:4:in `<main>'
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Failing point</h3>
+      </div>
+      <div class="panel-body">
+        <pre class="brush: ruby">
+require 'test_helper'
+
+class NavigationTest < ActionDispatch::IntegrationTest
+  test 'should display dashboard' do
+    get '/gingerr'
+    assert_response :success
+  end
+
+  test 'should display signal page' do
+    signal = gingerr_signals(:signal_monkey_1)
+    get "/gingerr/signals/#{signal.id}"
+
+    assert_response :success
+  end
+end
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
