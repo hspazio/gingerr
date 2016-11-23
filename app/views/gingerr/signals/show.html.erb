@@ -1,12 +1,4 @@
-
-<p>
-  <ol class="breadcrumb">
-    <li><%= link_to @signal.app_name, app_path(@signal.app) %></li>
-    <li class="active"><%= @signal.id %></li>
-  </ol>
-</p>
-
-<h3>Signal: <%= @signal.id %></h3>
+<h3>Signal: <%= @signal.id %> <%= signal_type @signal %></h3>
 
 <h4>Endpoint</h4>
 <dl class="endpoint dl-horizontal">
@@ -15,3 +7,4 @@
   <dt>Hostname</dt><dd><%= @signal.endpoint.hostname %></dd>
   <dt>Login</dt><dd><%= @signal.endpoint.login %></dd>
 </dl>
+
