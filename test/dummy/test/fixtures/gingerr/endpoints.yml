@@ -1,0 +1,9 @@
+endpoint_1:
+  ip: 1.2.3.4
+  hostname: jungle-server
+  login: js
+
+endpoint_2:
+  ip: 122.230.1.25
+  hostname: forest-server
+  login: fs

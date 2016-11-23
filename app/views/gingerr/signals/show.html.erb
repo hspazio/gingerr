@@ -7,3 +7,11 @@
 </p>
 
 <h3>Signal: <%= @signal.id %></h3>
+
+<h4>Endpoint</h4>
+<dl class="endpoint dl-horizontal">
+  <dt>#</dt><dd><%= @signal.endpoint.id %></dd>
+  <dt>IP</dt><dd><%= @signal.endpoint.ip %></dd>
+  <dt>Hostname</dt><dd><%= @signal.endpoint.hostname %></dd>
+  <dt>Login</dt><dd><%= @signal.endpoint.login %></dd>
+</dl>

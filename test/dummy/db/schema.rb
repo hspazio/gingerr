@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119173304) do
+ActiveRecord::Schema.define(version: 20161123175500) do
 
   create_table "gingerr_apps", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gingerr_endpoints", force: :cascade do |t|
+    t.string   "ip"
+    t.string   "hostname"
+    t.string   "login"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -23,7 +31,9 @@ ActiveRecord::Schema.define(version: 20161119173304) do
     t.integer  "pid"
     t.integer  "app_id"
     t.datetime "created_at"
+    t.integer  "endpoint_id"
     t.index ["app_id"], name: "index_gingerr_signals_on_app_id"
+    t.index ["endpoint_id"], name: "index_gingerr_signals_on_endpoint_id"
     t.index ["type"], name: "index_gingerr_signals_on_type"
   end
 

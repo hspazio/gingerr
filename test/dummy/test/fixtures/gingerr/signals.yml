@@ -8,54 +8,63 @@ signal_monkey_1:
   app: app_monkey
   type: Gingerr::ErrorSignal
   pid: 12
+  endpoint: endpoint_2
   created_at: <%= 48.hours.ago.to_datetime %>
 
 signal_monkey_2:
   app: app_monkey
   type: Gingerr::ErrorSignal
   pid: 13
+  endpoint: endpoint_3
   created_at: <%= 30.hours.ago.to_datetime %>
 
 signal_monkey_3:
   app: app_monkey
   type: Gingerr::SuccessSignal
   pid: 14
+  endpoint: endpoint_3
   created_at: <%= 12.hours.ago.to_datetime %>
 
 signal_jaguar_1:
   app: app_jaguar
   type: Gingerr::SuccessSignal
   pid: 140
+  endpoint: endpoint_2
   created_at: <%= 40.hours.ago.to_datetime %>
 
 signal_jaguar_2:
   app: app_jaguar
   type: Gingerr::ErrorSignal
   pid: 142
+  endpoint: endpoint_2
   created_at: <%= 4.hours.ago.to_datetime %>
 
 signal_elephant_1:
   app: app_elephant
   type: Gingerr::SuccessSignal
   pid: 169
+  endpoint: endpoint_1
   created_at: <%= 41.hours.ago.to_datetime %>
 
 signal_elephant_2:
   app: app_elephant
   type: Gingerr::SuccessSignal
   pid: 170
+  endpoint: endpoint_1
   created_at: <%= 14.hours.ago.to_datetime %>
 
 signal_elephant_3:
   app: app_elephant
   type: Gingerr::ErrorSignal
   pid: 171
+  endpoint: endpoint_1
   created_at: <%= 12.hours.ago.to_datetime %>
 
 signal_elephant_4:
   app: app_elephant
   type: Gingerr::ErrorSignal
   pid: 172
+  endpoint: endpoint_1
   created_at: <%= 1.hours.ago.to_datetime %>
 
 
