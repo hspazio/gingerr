@@ -22,6 +22,9 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
+def parse_json(data)
+  JSON.parse(data, symbolize_names: true)
+end
 
 module Gingerr
   class TestCase < ActiveSupport::TestCase
