@@ -12,9 +12,18 @@ $link-color-active: #eee;
 }
 
 .main { 
-	margin-top: 30px;
+	margin-top: 25px;
   .sidebar {
     margin-top: 30px;      
+  }
+}
+
+.signal-banner {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+
+  .signal-actions {
+    padding-top: 15px;
   }
 }
   

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'minitest/mock'
 
 module Gingerr
   class SignalTest < ActiveSupport::TestCase
@@ -76,6 +77,11 @@ module Gingerr
     test 'responds to state' do
       assert_equal :error, ErrorSignal.new.state
       assert_equal :success, SuccessSignal.new.state
+    end
+
+    test 'delegates endpoint description to endpoint' do
+      signal = gingerr_signals(:signal_monkey_1)
+      assert_equal 'fs@forest-server (122.230.1.25)', signal.endpoint_description
     end
   end
 end

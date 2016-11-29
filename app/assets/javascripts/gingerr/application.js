@@ -20,4 +20,9 @@
 
 $(document).ready(function() {
     SyntaxHighlighter.all();
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 });

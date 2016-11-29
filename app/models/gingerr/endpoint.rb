@@ -5,7 +5,12 @@ module Gingerr
     validates :login, presence: true
     validate :ip_has_ipv4_format, if: 'self.ip'
 
-  private
+    def description
+      "#{login}@#{hostname} (#{ip})"
+    end
+
+    private
+
     def ip_has_ipv4_format
       ip_tokens = self.ip.scan(/(\d+).(\d+).(\d+).(\d+)/).flatten
 

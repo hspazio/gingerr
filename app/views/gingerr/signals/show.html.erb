@@ -1,36 +1,44 @@
-<div class="row">
-  <div class="col-md-8">
-    <h3>Signal: <%= link_to @signal.app.name, app_path(@signal.app) %> / <%= @signal.id %> <%= signal_type @signal %></h3>
+<div class="row signal-banner bg-<%= @signal.error? ? 'danger' : 'success' %>">
+  <div class="col-md-12">
+    <h3>Signal <%= link_to @signal.app.name, app_path(@signal.app) %>
+      <i class="fa fa-chevron-right"></i>
+      <%= @signal.id %> <%= signal_type @signal %></h3>
     <p>
-      Received in <%= time_tag @signal.created_at %> (<%= time_ago_in_words(@signal.created_at) %>)
+      Received in <%= time_tag @signal.created_at %> (<%= time_ago_in_words(@signal.created_at) %> ago)
     </p>
-  </div>
-  <div class="col-md-4">
-    <% if @signal.error? %>
-      <button class="btn btn-primary"><i class="fa fa-thumb-tack"></i> Create Ticket</button>
-      <button class="btn btn-success"><i class="fa fa-check"></i> Mark as Resolved</button>
-    <% end %>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-television"></i> Endpoint</h3>
       </div>
       <div class="panel-body">
-        <dl class="endpoint dl-horizontal">
-          <dt>#</dt><dd><%= @signal.endpoint.id %></dd>
-          <dt>IP</dt><dd><%= @signal.endpoint.ip %></dd>
-          <dt>Hostname</dt><dd><%= @signal.endpoint.hostname %></dd>
-          <dt>Login</dt><dd><%= @signal.endpoint.login %></dd>
-        </dl>
+        <table class="table">
+          <thead>
+            <th>#</th>
+            <th>Login</th>
+            <th>Hostname</th>
+            <th>IP</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @signal.endpoint.id %></td>
+              <td><%= @signal.endpoint.login %></td>
+              <td><%= @signal.endpoint.hostname %></td>
+              <td><%= @signal.endpoint.ip %></td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
 
+
+<div class="row">
   <% if @signal.error? %>
   <div class="col-md-6">
     <div class="panel panel-default">
@@ -48,6 +56,11 @@
         </dl>
       </div>
     </div>
+  </div>
+
+  <div class="signal-actions col-md-6">
+    <button class="btn btn-primary"><i class="fa fa-thumb-tack"></i> Create Ticket</button>
+    <button class="btn btn-success"><i class="fa fa-check"></i> Mark as Resolved</button>
   </div>
   <% end %>
 </div>

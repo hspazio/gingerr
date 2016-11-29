@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123175500) do
+ActiveRecord::Schema.define(version: 20161129201030) do
 
   create_table "gingerr_apps", force: :cascade do |t|
     t.string   "name"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20161123175500) do
     t.string   "login"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gingerr_errors", force: :cascade do |t|
+    t.integer  "signal_id"
+    t.string   "name"
+    t.string   "message"
+    t.string   "file"
+    t.text     "backtrace"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["signal_id"], name: "index_gingerr_errors_on_signal_id"
   end
 
   create_table "gingerr_signals", force: :cascade do |t|

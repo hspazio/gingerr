@@ -15,5 +15,9 @@ module Gingerr
     def state
       error? ? :error : :success
     end
+
+    def endpoint_description
+      endpoint && endpoint.description
+    end
   end
 end

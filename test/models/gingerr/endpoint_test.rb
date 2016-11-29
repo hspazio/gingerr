@@ -1,17 +1,7 @@
 require 'test_helper'
 
 module Gingerr
-  class EndpointTest < ActiveSupport::TestCase
-    def assert_any_errors(object, attribute)
-      object.valid?
-      assert_not_empty object.errors[attribute]
-    end
-
-    def assert_no_errors(object, attribute)
-      object.valid?
-      assert_empty object.errors[attribute]
-    end
-
+  class EndpointTest < TestCase
     setup do
       @endpoint = Gingerr::Endpoint.new
     end
