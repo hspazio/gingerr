@@ -19,9 +19,11 @@ module Gingerr
     end
 
     def create
-      if @app.signals.create(create_params)
+      creator = Gingerr::SignalCreator.new
+      @signal = creator.create(@app, create_params)
+      if creator.errors.empty?
         respond_to do |format|
-          format.json { render json: {}, status: :created }
+          format.json { render json: @signal, status: :created, location: signal_url(@signal) }
         end
       else
 

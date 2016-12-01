@@ -95,7 +95,7 @@ class ApiTest < ActionDispatch::IntegrationTest
     data = parse_json(response.body)
 
     assert_response :created
-    assert data[:id] > 0
-    assert_not_empty response.headers[:Location]
+    assert_valid_signal(data)
+    assert_not_empty response.headers['Location']
   end
 end
