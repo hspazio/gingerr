@@ -7,6 +7,11 @@ module Gingerr
       @signal = Gingerr::Signal.new
     end
 
+    test 'returns STI class for provided type' do
+      assert_equal 'Gingerr::SuccessSignal', @signal.class.class_for_type(:success)
+      assert_equal 'Gingerr::ErrorSignal', @signal.class.class_for_type(:error)
+    end
+
     test 'type attribute not valid if nil' do
       @signal.type = nil
       @signal.valid?
@@ -20,7 +25,7 @@ module Gingerr
     end
 
     test 'type attribute valid if SuccessSignal' do
-      @signal.type = 'SuccessSignal'
+      @signal.type = 'Gingerr::SuccessSignal'
       @signal.valid?
       assert_empty @signal.errors[:type]
     end
@@ -59,6 +64,18 @@ module Gingerr
       @signal.app = Gingerr::App.new(name: 'test')
       @signal.valid?
       assert_empty @signal.errors[:app]
+    end
+
+    test 'not valid if not belonging to an endpoint' do
+      @signal.endpoint = nil
+      @signal.valid?
+      assert_not_empty @signal.errors[:endpoint]
+    end
+
+    test 'valid if belongs to endpoint' do
+      @signal.endpoint = gingerr_endpoints(:endpoint_1)
+      @signal.valid?
+      assert_empty @signal.errors[:endpoint]
     end
 
     test 'responds to app_name' do

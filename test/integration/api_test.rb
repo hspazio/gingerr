@@ -81,4 +81,21 @@ class ApiTest < ActionDispatch::IntegrationTest
 
     assert_not_found
   end
+
+  test 'POST /apps/:app_id/signals creates a success signal' do
+    app = gingerr_apps(:app_monkey)
+    params = {
+        type: 'success',
+        pid: 123,
+        ip: '123.123.123.123',
+        hostname: 'MyHostName',
+        login: 'name_surname' }
+    post "/gingerr/apps/#{app.id}/signals.json", params: params
+
+    data = parse_json(response.body)
+
+    assert_response :created
+    assert data[:id] > 0
+    assert_not_empty response.headers[:Location]
+  end
 end

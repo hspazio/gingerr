@@ -1,12 +1,22 @@
 module Gingerr
   class Signal < ApplicationRecord
+    TYPES = {
+        error:   'Gingerr::ErrorSignal',
+        success: 'Gingerr::SuccessSignal',
+    }
+
     belongs_to :app
     belongs_to :endpoint
 
-    validates :type, inclusion: ['SuccessSignal', 'ErrorSignal']
+    validates :type, inclusion: TYPES.values
     validates :pid, numericality: { only_integer: true, greater_than: 0 }
+    validates :endpoint_id, presence: true
 
-    scope :recent, ->(limit=10) { order('created_at DESC').limit(limit) }
+    scope :recent,  ->(limit=10) { order('created_at DESC').limit(limit) }
+
+    def self.class_for_type(type)
+      TYPES[type.to_sym]
+    end
 
     def app_name
       app && app.name
