@@ -14,6 +14,11 @@ module Gingerr
         signal = app.signals.create(signal_params(params).merge(endpoint: endpoint))
         @errors += signal.errors.full_messages unless signal.persisted?
 
+        if signal.respond_to?(:error?) && signal.error?
+          error = signal.create_error(error_params(params))
+          @errors += error.errors.full_messages unless error.persisted?
+        end
+
         signal
       end
     end
@@ -27,6 +32,10 @@ module Gingerr
     def signal_params(params)
       { pid: params[:pid],
         type: Signal.class_for_type(params[:type]) }
+    end
+
+    def error_params(params)
+      params[:error]
     end
   end
 end

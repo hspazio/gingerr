@@ -8,6 +8,12 @@ module Gingerr
     belongs_to :app
     belongs_to :endpoint
 
+    has_one :error, serializer: Gingerr::ErrorSerializer, if: :error?
+
     type 'gingerr/signal'
+
+    def error?
+      object.error?
+    end
   end
 end

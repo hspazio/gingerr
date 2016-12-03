@@ -10,7 +10,6 @@ module Gingerr
 
     validates :type, inclusion: TYPES.values
     validates :pid, numericality: { only_integer: true, greater_than: 0 }
-    validates :endpoint_id, presence: true
 
     scope :recent,  ->(limit=10) { order('created_at DESC').limit(limit) }
 

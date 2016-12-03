@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+error_monkey_1:
+  signal: signal_monkey_1
+  name: StandardError
+  message: some weird error message
+  file: file.rb
+  backtrace: |
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:429:in `table_structure'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/railties/databases.rake:219:in `block (3 levels) in <top (required)="">'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:248:in `call'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:243:in `execute'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:187:in `block in invoke_with_call_chain'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb:211:in `mon_synchronize'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:180:in `invoke_with_call_chain'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:173:in `invoke'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:178:in `standard_exception_handling'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/railties-5.0.0.1/lib/rails/commands.rb:18:in `<top (required)="">'
+    bin/rails:4:in `require'
+    bin/rails:4:in `<main>'
+
+error_monkey_2:
+  signal: signal_monkey_2
+  name: RuntimeError
+  message: missing file XYZ
+  file: record.rb
+  backtrace: |
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:429:in `table_structure'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activerecord-5.0.0.1/lib/active_record/railties/databases.rake:219:in `block (3 levels) in <top (required)="">'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:248:in `call'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:243:in `execute'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:187:in `block in invoke_with_call_chain'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/2.2.0/monitor.rb:211:in `mon_synchronize'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:180:in `invoke_with_call_chain'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/task.rb:173:in `invoke'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/rake-11.3.0/lib/rake/application.rb:178:in `standard_exception_handling'
+    /Users/fabio/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/railties-5.0.0.1/lib/rails/commands.rb:18:in `<top (required)="">'
+    bin/rails:4:in `require'
+    bin/rails:4:in `<main>'

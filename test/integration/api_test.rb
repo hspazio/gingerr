@@ -98,4 +98,61 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert_valid_signal(data)
     assert_not_empty response.headers['Location']
   end
+
+  test 'POST /apps/:app_id/signals creates an error signal' do
+    app = gingerr_apps(:app_monkey)
+    params = {
+        type: 'error',
+        pid: 123,
+        ip: '123.123.123.123',
+        hostname: 'MyHostName',
+        login: 'name_surname',
+        error: {
+            name: 'StandardError',
+            message: 'something was broken',
+            file: 'test.rb',
+            backtrace: "some long\nmultiline\nbacktrace"
+        }
+    }
+    post "/gingerr/apps/#{app.id}/signals.json", params: params
+
+    data = parse_json(response.body)
+
+    assert_response :created
+    assert_valid_signal(data)
+    assert_equal 'StandardError', data[:error][:name]
+    assert_equal 'something was broken', data[:error][:message]
+    assert_equal 'test.rb', data[:error][:file]
+    assert_equal 3, data[:error][:backtrace].size
+    assert_not_empty response.headers['Location']
+  end
+
+  test 'POST /apps/:app_id/signals shows 404 status if app not found' do
+    params = { }
+    post "/gingerr/apps/99999/signals.json", params: params
+
+    assert_not_found
+  end
+
+  test 'POST /apps/:app_id/signals shows 400 error if invalid params provided' do
+    app = gingerr_apps(:app_monkey)
+    params = {
+        type: 'something_else',
+        pid: nil,
+        ip: '999.999.999.999',
+        hostname: 'MyHostName',
+        login: nil }
+    expected_errors = [
+        'Login can\'t be blank',
+        'Ip is not a valid IPv4',
+        'Type is not included in the list',
+        'Pid is not a number']
+
+    post "/gingerr/apps/#{app.id}/signals.json", params: params
+    data = parse_json(response.body)
+
+    assert_response :bad_request
+    assert_equal expected_errors, data[:errors]
+    assert_nil response.headers['Location']
+  end
 end
