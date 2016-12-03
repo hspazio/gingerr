@@ -28,9 +28,11 @@
           <a class="navbar-brand" href="<%= root_path %>">Gingerr</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-left">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
             <li><a href="#">Help</a></li>
           </ul>
@@ -38,31 +40,14 @@
       </div>
     </nav>
 
-    <div id="wrapper">
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-          <li class="sidebar-brand"><a href="#">Start Bootstrap</a></li>
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Shortcuts</a></li>
-          <li><a href="#">Overview</a></li>
-          <li><a href="#">Events</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <!-- /#sidebar-wrapper -->
-
-      <!-- Page Content -->
-        <div class="container-fluid">
-          <div class="row main">
-            <div class="col-sm-12 col-md-12 col-lg-12 main">
-              <%= yield %>
-            </div>
+    <!-- Page Content -->
+      <div class="container-fluid">
+        <div class="row main">
+          <div class="col-sm-12 col-md-12 col-lg-12 main">
+            <%= yield %>
           </div>
         </div>
-    </div>
+      </div>
   </body>
 </html>
 

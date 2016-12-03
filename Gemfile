@@ -19,3 +19,4 @@ gem 'font-awesome-rails'
 gem 'simplecov', :require => false, :group => :test
 gem 'syntax-highlighter-rails'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'chartkick'

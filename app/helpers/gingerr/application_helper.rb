@@ -19,5 +19,17 @@ module Gingerr
         'Success'
       end
     end
+
+    def app_stability_score(app_stats)
+      score = app_stats.stability_score
+      score_color = case score
+                    when 1 then 'text-success'
+                    when (0..0.7) then 'text-danger'
+                    when (0.7..1) then 'text-warning'
+                    end
+      content_tag :strong, class: "stability-score #{score_color}" do
+        "#{(score * 100).round}%" 
+      end
+    end
   end
 end

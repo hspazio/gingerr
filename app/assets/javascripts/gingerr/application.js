@@ -16,13 +16,11 @@
 //= require syntax-highlighter-rails/shCore
 //= require syntax-highlighter-rails/shBrushRuby
 //= require syntax-highlighter-rails/shBrushPlain
+//= require Chart.bundle
+//= require highcharts.js
+//= require chartkick
 //= require_tree .
 
 $(document).ready(function() {
     SyntaxHighlighter.all();
-
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
 });

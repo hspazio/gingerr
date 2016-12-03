@@ -2,10 +2,13 @@ module Gingerr
   class App < ApplicationRecord
     PERCENT_OVERTIME = 1.1
 
-    has_many :signals
-    has_many :recent_signals, -> { recent(10) }, class_name: 'Gingerr::Signal'
+    has_many :signals, -> { order(:created_at) }
 
     validates :name, presence: true
+
+    def recent_signals(limit = 10)
+      signals.recent(limit)
+    end
 
     def current_signal_state
       current_signal && current_signal.state
@@ -19,6 +22,7 @@ module Gingerr
       @current_signal ||= recent_signals.take
     end
 
+    # TODO: move these 2 methods into AppStats class
     def signal_frequency
       signals = recent_signals
       if (count_signals = signals.count)
@@ -28,6 +32,10 @@ module Gingerr
 
     def signal_frequency_in_hours
       "#{(signal_frequency / 3600)} sig/h"
+    end
+
+    def stats
+      @stats ||= Gingerr::AppStats.new(self)
     end
 
     def require_alert?
