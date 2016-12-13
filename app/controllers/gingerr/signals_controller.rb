@@ -14,7 +14,7 @@ module Gingerr
     def show
       respond_to do |format|
         format.json { render json: @signal }
-        format.html { }
+        format.html {}
       end
     end
 
@@ -23,10 +23,11 @@ module Gingerr
       @signal = creator.create(@app, create_params)
       respond_to do |format|
         format.json {
-          if creator.errors.empty?
+          errors = creator.errors
+          if errors.empty?
             render json: @signal, status: :created, location: signal_url(@signal)
           else
-            render_errors(creator.errors)
+            render_errors(errors)
           end
         }
       end
@@ -43,7 +44,9 @@ module Gingerr
     end
 
     def create_params
-      params.permit(:type, :pid, :ip, :hostname, :login, error: [:name, :message, :file, :backtrace])
+      params.permit(:type, :pid, :ip, :hostname, :login, error: [
+        :name, :message, :file, :backtrace
+      ])
     end
   end
 end

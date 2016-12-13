@@ -14,7 +14,7 @@ module Gingerr
     def not_found
       respond_to do |format|
         format.json { render_errors(['Record not found'], :not_found) }
-        format.html { }
+        format.html {}
       end
     end
   end

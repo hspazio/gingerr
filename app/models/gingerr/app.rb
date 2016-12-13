@@ -1,7 +1,5 @@
 module Gingerr
   class App < ApplicationRecord
-    PERCENT_OVERTIME = 1.1
-
     has_many :signals, -> { order(:created_at) }
 
     validates :name, presence: true
@@ -39,7 +37,7 @@ module Gingerr
     end
 
     def require_alert?
-      current_signal.success? && signal_frequency * PERCENT_OVERTIME < Time.zone.now - current_signal_created_at
+      current_signal.success? && current_signal.overtime?(signal_frequency)
     end
   end
 end

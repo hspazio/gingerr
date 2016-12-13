@@ -6,7 +6,7 @@ module Gingerr
 
     def stability_score
       states = @app.recent_signals(30).map(&:state)
-      states.count{ |s| s == :success }.to_f / states.size
+      states.count { |state| state == :success }.to_f / states.size
     end
   end
 end
