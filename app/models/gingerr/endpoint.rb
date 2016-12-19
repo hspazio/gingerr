@@ -5,6 +5,10 @@ module Gingerr
     validates :login, presence: true
     validate :ip_has_ipv4_format, if: 'self.ip'
 
+    def self.from_params(params)
+      where(params).first_or_create
+    end
+
     def description
       "#{login}@#{hostname} (#{ip})"
     end
