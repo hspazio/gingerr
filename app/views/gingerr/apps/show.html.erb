@@ -1,24 +1,73 @@
-<h2>App: <%= @app.name %></h2>
+<h2>Apps <i class="fa fa-chevron-right"></i> <%= @app.name %></h2>
 
-<dl class="stats dl-horizontal">
-  <dt>Last signal:</dt><dd><%= signal_type @app.current_signal %></dd>
-  <dt>Stability score: </dt><dd><%= app_stability_score @app.stats %></dd>
-</dl>
+<div class="row">
+  <div class="col-md-3 col-sm-6 col-sx-12">
+    <div class="panel-small panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Last Signal</h3>
+      </div>
+      <div class="panel-body">
+        <%= signal_type @app.current_signal %>
+        <%= time_ago_in_words @app.current_signal_created_at %>
+      </div>
+    </div>
+  </div>
 
-<section>
-  <h3>Signals</h3>
-  <%= column_chart Gingerr::AppStats.new(@app).recent_signals_timeline,
-    stacked: true,
-    library: { colors: ['#ff4c4c', '#a7f98e'] } %>
-</section>
+  <div class="col-md-3 col-sm-6 col-sx-12">
+    <div class="panel-small panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Signal Frequency</h3>
+      </div>
+      <div class="panel-body">
+        <%= distance_of_time_in_words @app.signal_frequency %>
+      </div>
+    </div>
+  </div>
 
-<section>
-  <h3>Distance between signals</h3>
-  <% data = @app.signals.recent(50).each_cons(2).map do |sig1, sig2|
-    [sig2.created_at.to_s, sig2.created_at - sig1.created_at]
-  end %>
-  <%= area_chart data %>
-</section>
+  <div class="col-md-3 col-sm-6 col-sx-12">
+    <div class="panel-small panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Stability</h3>
+      </div>
+      <div class="panel-body">
+        <%= app_stability_score @app.stats %>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-3 col-sm-6 col-sx-12">
+    <div class="panel-small panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Alerts</h3>
+      </div>
+      <div class="panel-body">
+        Sent about 3 hours ago
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Signals</h3>
+  </div>
+  <div class="panel-body">
+    <%= column_chart Gingerr::AppStats.new(@app).recent_signals_timeline,
+      stacked: true,
+      library: { colors: ['#e08f5d', '#89b94b'] } %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Distance Between Signals</h3>
+  </div>
+  <div class="panel-body">
+    <% data = @app.signals.recent(50).each_cons(2).map do |sig1, sig2|
+      [sig2.created_at.to_s, sig2.created_at - sig1.created_at]
+    end %>
+    <%= area_chart data, library: { colors: ['#ecb939'] } %>
+  </div>
+</div>
 
 <%= render partial: 'gingerr/signals/table', locals: { signals: @signals, title: 'Recent signals' } %>

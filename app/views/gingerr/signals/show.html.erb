@@ -1,8 +1,10 @@
 <div class="row signal-banner bg-<%= @signal.error? ? 'danger' : 'success' %>">
   <div class="col-md-12">
-    <h3>Signal <%= link_to @signal.app.name, app_path(@signal.app) %>
+    <h2>Apps
       <i class="fa fa-chevron-right"></i>
-      <%= @signal.id %> <%= signal_type @signal %></h3>
+      <%= link_to @signal.app.name, app_path(@signal.app) %>
+      <i class="fa fa-chevron-right"></i>
+      <%= @signal.id %> <%= signal_type @signal %></h2>
     <p>
       Received in <%= time_tag @signal.created_at %> (<%= time_ago_in_words(@signal.created_at) %> ago)
     </p>

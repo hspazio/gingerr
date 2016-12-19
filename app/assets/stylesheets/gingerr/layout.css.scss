@@ -1,6 +1,6 @@
 /* ============= default =================== */
-$link-color: #ffee00;
-$link-color-active: #eee; 
+$link-color: #eee;
+$link-color-active: #ecb939;
 
 .main-menu {
   a, a:visited {
@@ -26,4 +26,46 @@ $link-color-active: #eee;
   .signal-actions {
     padding-top: 15px;
   }
+}
+
+/* new colors */
+$dark-brown: #372e29;
+$light-brown: #726255;
+$light-orange: #f0c75e;
+$dark-orange: #ecb939;
+$green: #89b94b;
+$red: #e08f5d;
+
+.main-menu {
+  background-color: #372e29 !important;
+  a, a:visited {
+  	 color: $link-color !important;
+  }
+
+  a:active, a:hover {
+  	color: $link-color-active !important;
+  }
+
+}
+.panel {
+  .panel-heading {
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #e2dfdd !important;
+    border-bottom-style: dashed !important;
+  }
+}
+
+.panel-small {
+  text-align: center;
+  .panel-body {
+    font-size: 1.5em;
+  }
+}
+
+.fa {
+  margin-right: 4px;
+}
+body {
+  background-color: #EEE !important;
 }
