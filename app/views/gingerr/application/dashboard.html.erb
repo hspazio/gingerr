@@ -8,7 +8,6 @@
     <table class="table">
       <thead>
       <tr>
-        <th>#</th>
         <th>Name</th>
         <th>State</th>
         <th>Stability</th>
@@ -21,7 +20,6 @@
       <% @apps.each do |app| %>
           <% stability_level = app_stability_level(app.stats.stability_score)%>
           <tr class="bg-<%= stability_level %>">
-            <td><%= app.id %></td>
             <td><%= link_to app.name, app_path(app) %></td>
             <td><%= signal_type app.current_signal %></td>
             <td><%= app_stability_score app.stats %></td>

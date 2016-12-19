@@ -1,7 +1,7 @@
 /* ============= default =================== */
 $link-color: #eee;
 $link-color-active: #ecb939;
-
+/*
 .main-menu {
   a, a:visited {
   	 color: $link-color !important;
@@ -11,7 +11,7 @@ $link-color-active: #ecb939;
   	color: $link-color-active !important;
   }
 }
-
+*/
 .main {
 	margin-top: 25px;
   .sidebar {
@@ -38,6 +38,7 @@ $red: #e08f5d;
 
 .main-menu {
   background-color: #372e29 !important;
+
   a, a:visited {
   	 color: $link-color !important;
   }
@@ -46,6 +47,11 @@ $red: #e08f5d;
   	color: $link-color-active !important;
   }
 
+  #brand {
+    font-family: 'Pacifico', Helvetica, sans-serif !important;
+    font-size: 1.6em;
+    color: $link-color-active !important;
+  }
 }
 .panel {
   .panel-heading {
