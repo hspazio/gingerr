@@ -12,26 +12,30 @@ module Gingerr
 
     def self.success_signal(app, endpoint)
       Gingerr::SuccessSignal.new(
-          app: app,
-          endpoint: endpoint,
-          pid: rand(5000),
-          created_at: timestamp)
+        app: app,
+        endpoint: endpoint,
+        pid: rand(5000),
+        created_at: timestamp)
     end
 
     def self.error_signal(app, endpoint, error)
-      Gingerr::ErrorSignal.new(
-          app: app,
-          endpoint: endpoint,
-          pid: rand(5000),
-          created_at: timestamp)
+      signal = Gingerr::ErrorSignal.new(
+        app: app,
+        endpoint: endpoint,
+        pid: rand(5000),
+        created_at: timestamp)
+
+      error.update(signal: signal)
+
+      signal
     end
 
     def self.error
       Gingerr::Error.new(
-          name: word(40),
-          message: word(50),
-          file: word(10) + '.rb',
-          backtrace: 5.times.map{ word(100) }.join("\n"))
+        name: word(40),
+        message: word(50),
+        file: word(10) + '.rb',
+        backtrace: 5.times.map{ word(100) }.join("\n"))
     end
 
     def self.name
@@ -49,8 +53,6 @@ module Gingerr
     def self.login
       word(10)
     end
-
-    private
 
     def self.word(length)
       ch = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten

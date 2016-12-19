@@ -1,12 +1,9 @@
 module Gingerr
   class App < ApplicationRecord
     has_many :signals, -> { order(:created_at) }
+    has_many :recent_signals, -> { recent(10) }, class_name: 'Gingerr::Signal'
 
     validates :name, presence: true
-
-    def recent_signals(limit = 10)
-      signals.recent(limit)
-    end
 
     def current_signal_state
       current_signal && current_signal.state
