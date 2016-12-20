@@ -58,7 +58,7 @@
       </thead>
       <tbody>
       <% @apps.each do |app| %>
-          <% stability_level = app_stability_level(app.stats.stability_score)%>
+          <% stability_level = app_stability_level(app.stats.stability_level)%>
           <% signal_frequency = app.signal_frequency %>
           <tr class="bg-<%= stability_level %>">
             <td><%= link_to app.name, app_path(app) %></td>

@@ -9,8 +9,8 @@ module Gingerr
       states.count { |state| state == :success }.to_f / states.size
     end
 
-    def stability_level
-      case stability_score
+    def stability_level(score: stability_score)
+      case score
       when 1 then :ok
       when (0..0.7) then :critical
       when (0.7..1) then :unstable
