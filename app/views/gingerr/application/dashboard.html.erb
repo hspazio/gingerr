@@ -1,5 +1,45 @@
 <h1>Dashboard</h1>
 
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-medkit"></i> Apps Health</h3>
+      </div>
+      <div class="panel-body">
+        <%= pie_chart @project_health, library: pie_chart_options.merge(colors: [colors[:green], colors[:orange], colors[:red]]) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Top Errors</h3>
+      </div>
+      <div class="panel-body">
+        <%= column_chart [
+          ['StandardError', 103],
+          ['ActiveRecord::InvalidStatement', 50],
+          ['RuntimeError', 46],
+          ['Net::FTPTimeout', 30],
+          ['NoMemoryError', 16]], library: { colors: [colors[:orange]] } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Recent Errors</h3>
+      </div>
+      <div class="panel-body">
+        TBD
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="fa fa-cogs"></i> Apps</h3>
@@ -19,14 +59,15 @@
       <tbody>
       <% @apps.each do |app| %>
           <% stability_level = app_stability_level(app.stats.stability_score)%>
+          <% signal_frequency = app.signal_frequency %>
           <tr class="bg-<%= stability_level %>">
             <td><%= link_to app.name, app_path(app) %></td>
             <td><%= signal_type app.current_signal %></td>
             <td><%= app_stability_score app.stats %></td>
-            <td><% if app.require_alert? %>
+            <td><% if app.require_alert?(signal_frequency) %>
                   <i class="fa fa-bell" title="alert sent"></i>
               <% end %></td>
-            <td><%= distance_of_time_in_words app.signal_frequency %></td>
+            <td><%= distance_of_time_in_words signal_frequency %></td>
             <td><%= time_ago_in_words app.current_signal_created_at %> </td>
           </tr>
       <% end %>

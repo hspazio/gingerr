@@ -36,6 +36,27 @@ module Gingerr
       end
     end
 
+    def colors
+      { orange: '#f0c75e',
+        green:  '#89b94b',
+        red:    '#e08f5d' }
+    end
+    
+    def pie_chart_options
+      {
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+          }
+        }
+      }
+    end
+
     def chart_options
       {
           colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',

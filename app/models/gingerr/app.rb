@@ -1,9 +1,12 @@
 module Gingerr
   class App < ApplicationRecord
-    has_many :signals, -> { order(:created_at) }
-    has_many :recent_signals, -> { recent(10) }, class_name: 'Gingerr::Signal'
+    has_many :signals, -> { order('created_at DESC, id DESC') }
 
     validates :name, presence: true
+
+    def recent_signals(limit = 10)
+      signals.limit(limit)
+    end
 
     def current_signal_state
       current_signal && current_signal.state
@@ -33,7 +36,7 @@ module Gingerr
       @stats ||= Gingerr::AppStats.new(self)
     end
 
-    def require_alert?
+    def require_alert?(signal_frequency)
       current_signal.success? && current_signal.overtime?(signal_frequency)
     end
   end

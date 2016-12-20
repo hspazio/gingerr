@@ -4,7 +4,8 @@ module Gingerr
 
     def dashboard
       @apps = Gingerr::App.all.includes(:signals).order(:name)
-      @signals = Gingerr::Signal.recent.includes(:app)
+      @project_health = Gingerr::Stats::AppsStateSummary.new.call
+      @signals = Gingerr::Signal.recent.includes(:app, :endpoint)
     end
 
     def render_errors(errors, status = :bad_request)
