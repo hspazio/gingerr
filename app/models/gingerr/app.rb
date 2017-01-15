@@ -15,7 +15,7 @@ module Gingerr
     end
 
     def count_recent_success_signals
-      recent_signals.count { |signal| signal.state == :success }
+      recent_signals.each.count { |signal| signal.state == :success }
     end
 
     def current_signal_state
@@ -28,6 +28,12 @@ module Gingerr
 
     def current_signal
       @current_signal ||= recent_signals.take
+    end
+
+    def distance_between_signals(limit)
+      recent_signals(limit).reverse.each_cons(2).map { |sig1, sig2|
+        [sig2.created_at.to_s, sig2.created_at - sig1.created_at]
+      }
     end
 
     # TODO: move these 2 methods into AppStats class

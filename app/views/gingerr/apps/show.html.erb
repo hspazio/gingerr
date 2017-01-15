@@ -57,7 +57,7 @@
   <div class="panel-body">
     <%= column_chart Gingerr::AppStats.new(@app).recent_signals_timeline,
       stacked: true,
-      library: { colors: ['#e08f5d', '#89b94b'] } %>
+      library: { colors: [colors[:red], colors[:green]] } %>
   </div>
 </div>
 
@@ -66,10 +66,7 @@
     <h3 class="panel-title">Distance Between Signals</h3>
   </div>
   <div class="panel-body">
-    <% data = @app.signals.recent(50).reverse.each_cons(2).map do |sig1, sig2|
-      [sig2.created_at.to_s, sig2.created_at - sig1.created_at]
-    end %>
-    <%= area_chart data, library: { colors: ['#ecb939'] } %>
+    <%= Gingerr::Charts::DistanceBetweenSignals.new(@app, self).render %>
   </div>
 </div>
 

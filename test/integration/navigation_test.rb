@@ -12,5 +12,10 @@ class NavigationTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test 'should display all errors page' do
+    get '/gingerr/errors'
+    assert_response :success
+  end
 end
 
