@@ -9,9 +9,7 @@ module Gingerr
     end
 
     def show
-      @app = Gingerr::App.find_by(id: params[:id])
-
-      if @app
+      if (@app = Gingerr::App.find_by(id: params[:id]))
         respond_to do |format|
           format.json { render json: @app }
           format.html { @signals = @app.recent_signals }

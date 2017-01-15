@@ -12,11 +12,16 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass'
-gem 'jquery-rails'
-gem 'font-awesome-rails'
-gem 'simplecov', :require => false, :group => :test
-gem 'syntax-highlighter-rails'
+
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'bootstrap-sass'
 gem 'chartkick'
+gem 'font-awesome-rails'
+gem 'jquery-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'syntax-highlighter-rails'
+
+group :test do
+  gem 'mocha'
+  gem 'simplecov', require: false
+end

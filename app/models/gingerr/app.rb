@@ -4,8 +4,18 @@ module Gingerr
 
     validates :name, presence: true
 
+    scope :listing, -> { includes(:signals).order(:name) }
+
     def recent_signals(limit = 10)
       signals.limit(limit)
+    end
+
+    def count_recent_signals
+      recent_signals.count
+    end
+
+    def count_recent_success_signals
+      recent_signals.count { |signal| signal.state == :success }
     end
 
     def current_signal_state

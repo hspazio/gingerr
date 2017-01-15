@@ -50,5 +50,11 @@ module Gingerr
       assert_match /\d+ sig\/h/, freq
       assert_not_equal '0.0 sig/h', freq
     end
+
+    test 'count recent signals' do
+       app = gingerr_apps(:app_elephant)
+       recent_signals = app.recent_signals
+       assert_equal recent_signals.count, app.count_recent_signals
+   end
   end
 end

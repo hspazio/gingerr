@@ -3,7 +3,7 @@ module Gingerr
     protect_from_forgery with: :exception
 
     def dashboard
-      @apps = Gingerr::App.all.includes(:signals).order(:name)
+      @apps = Gingerr::App.listing
       @project_health = Gingerr::Stats::AppsStateSummary.new.call
       @signals = Gingerr::Signal.recent.includes(:app, :endpoint)
     end

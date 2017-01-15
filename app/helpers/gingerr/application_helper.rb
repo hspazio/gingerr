@@ -31,7 +31,7 @@ module Gingerr
     end
 
     def app_stability_level(level)
-      level_mapping = {
+      {
         ok:       'success',
         critical: 'danger',
         unstable: 'warning'
@@ -51,7 +51,7 @@ module Gingerr
             allowPointSelect: true,
             cursor: 'pointer',
             dataLabels: {
-                enabled: false
+              enabled: false
             },
             showInLegend: true
           }
