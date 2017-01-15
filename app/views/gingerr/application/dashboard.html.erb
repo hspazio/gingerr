@@ -39,12 +39,7 @@
     </div>
   </div>
 </div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><i class="fa fa-cogs"></i> Apps</h3>
-  </div>
-  <div class="panel-body">
+<%= full_width_panel title: 'Apps', icon: 'cogs' do %>
     <table class="table">
       <thead>
       <tr>
@@ -73,7 +68,6 @@
       <% end %>
       </tbody>
     </table>
-  </div>
-</div>
+<% end %>   
 
 <%= render partial: 'gingerr/signals/table', locals: { signals: @signals, title: 'Signals' } %>

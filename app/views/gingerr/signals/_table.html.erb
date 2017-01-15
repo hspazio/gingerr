@@ -1,10 +1,4 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><i class="fa fa-bullhorn"></i>
-      <%= title %> <small>latest 10</small>
-    </h3>
-  </div>
-  <div class="panel-body">
+<%= render layout: 'gingerr/shared/full_width_panel', locals: { title: "#{title} <small>latest 10</small>".html_safe, icon: 'bullhorn' } do %>
     <table class="table">
       <thead>
       <tr>
@@ -34,5 +28,4 @@
       <% end %>
       </tbody>
     </table>
-  </div>
-</div>
+<% end %>
