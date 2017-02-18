@@ -26,6 +26,10 @@ module Gingerr
       error? ? :error : :success
     end
 
+    def error?
+      false
+    end
+
     def endpoint_description
       endpoint && endpoint.description
     end

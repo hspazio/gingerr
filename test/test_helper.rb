@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-require 'mocha/mini_test'
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
@@ -23,6 +22,8 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
+
+require 'mocha/mini_test'
 
 def parse_json(data)
   JSON.parse(data, symbolize_names: true)

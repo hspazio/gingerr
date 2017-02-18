@@ -12,6 +12,7 @@ module Gingerr
     end
 
     def show
+      @error_info = @signal.error? && Gingerr::ErrorInfo.new(@signal.error)
       respond_to do |format|
         format.json { render json: @signal }
         format.html {}
@@ -21,6 +22,7 @@ module Gingerr
     def create
       creator = Gingerr::SignalCreator.new
       @signal = creator.create(@app, create_params)
+
       respond_to do |format|
         format.json {
           errors = creator.errors
