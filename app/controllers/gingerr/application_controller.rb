@@ -5,6 +5,7 @@ module Gingerr
     def dashboard
       @apps = Gingerr::App.listing
       @project_health = Gingerr::Stats::AppsStateSummary.new.call
+      @recent_errors = Gingerr::Stats::RecentErrors.new.call
       @signals = Gingerr::Signal.recent.includes(:app, :endpoint)
     end
 
