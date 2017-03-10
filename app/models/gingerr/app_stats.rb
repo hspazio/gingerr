@@ -4,14 +4,6 @@ module Gingerr
       @app = app
     end
 
-    def stability_level(score: stability_score)
-      @app.stability_level
-    end
-
-    def stability_score
-      @app.stability_score || 0
-    end
-
     def recent_signals_timeline
       stats = { error: {}, success: {} }
       signals = @app.signals.limit(50)

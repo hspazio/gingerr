@@ -9,8 +9,7 @@ module Gingerr
         result = { ok: 0, unstable: 0, critical: 0 }
 
         @project_apps.each_with_object(result) { |app, data|
-          stability_level = Gingerr::AppStats.new(app).stability_level
-          data[stability_level] += 1
+          data[app.stability_level] += 1
         }.to_a
       end
     end

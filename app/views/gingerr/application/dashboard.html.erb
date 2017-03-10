@@ -42,7 +42,7 @@
           <tr class="bg-<%= app_stability_level(app.stability_level) %>">
             <td><%= link_to app.name, app_path(app) %></td>
             <td><%= signal_type app.current_signal %></td>
-            <td><%= app_stability_score app.stats %></td>
+            <td><%= app_stability_score app %></td>
             <td><% if app.require_alert?(signal_frequency) %>
                   <i class="fa fa-bell" title="alert sent"></i>
               <% end %></td>
