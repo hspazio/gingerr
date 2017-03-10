@@ -4,19 +4,12 @@ module Gingerr
 
     validates :name, presence: true
 
-    scope :listing, -> { includes(:signals).order(:name) }
+    scope :listing, -> { order(:name) }
 
     def recent_signals(limit = 10)
       signals.limit(limit)
     end
 
-    def count_recent_signals
-      recent_signals.count
-    end
-
-    def count_recent_success_signals
-      recent_signals.each.count { |signal| signal.state == :success }
-    end
 
     def current_signal_state
       current_signal && current_signal.state
@@ -36,16 +29,16 @@ module Gingerr
       }
     end
 
-    # TODO: move these 2 methods into AppStats class
-    def signal_frequency
-      signals = recent_signals
-      if (count_signals = signals.count)
-        (signals.first.created_at - signals.last.created_at).to_f / count_signals
-      end
-    end
-
     def signal_frequency_in_hours
       "#{(signal_frequency / 3600)} sig/h"
+    end
+
+    def stability_level
+      case stability_score
+      when 100       then :ok
+      when (0..70)   then :critical
+      when (70..100) then :unstable
+      end
     end
 
     def stats
@@ -54,6 +47,34 @@ module Gingerr
 
     def require_alert?(signal_frequency)
       current_signal.success? && current_signal.overtime?(signal_frequency)
+    end
+
+    def cache_stats
+      update_attributes(
+        signal_frequency: calculate_signal_frequency,
+        stability_score:  calculate_stability_score
+      )
+    end
+
+    private
+
+    def calculate_signal_frequency
+      signals = recent_signals
+      if (count_signals = signals.count)
+        (signals.first.created_at - signals.last.created_at).to_f / count_signals
+      end
+    end
+
+    def calculate_stability_score
+      (count_recent_success_signals.to_f * 100 / count_recent_signals).round
+    end
+
+    def count_recent_signals
+      recent_signals.count
+    end
+
+    def count_recent_success_signals
+      recent_signals.each.count(&:success?)
     end
   end
 end

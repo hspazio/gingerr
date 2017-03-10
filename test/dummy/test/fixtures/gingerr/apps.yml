@@ -6,9 +6,15 @@
 #
 app_monkey:
   name: Monkey2.0
+  signal_frequency: 10_000
+  stability_score: 75
 
 app_jaguar:
   name: jaguar-ruby
+  signal_frequency: 0
+  stability_score: 50
 
 app_elephant:
   name: /home/xyz/bin/elephant.rb
+  signal_frequency: 5_000
+  stability_score: 100

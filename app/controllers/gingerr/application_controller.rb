@@ -6,7 +6,7 @@ module Gingerr
 
     def dashboard
       @apps = Gingerr::App.listing
-      @project_health = Gingerr::Stats::AppsStateSummary.new.call
+      @project_health = Gingerr::Stats::AppsStateSummary.new(@apps).call
       @recent_errors = Gingerr::Stats::RecentErrors.new.call
       @signals = Gingerr::Signal.recent.includes(:app, :endpoint)
     end
@@ -27,7 +27,7 @@ module Gingerr
         # authenticate using access token
       else 
         if authenticate_with_http_basic { |u, p| u == 'admin' && p == 'admin' }
-          
+
         else
           request_http_basic_authentication
         end

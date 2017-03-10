@@ -20,13 +20,11 @@ module Gingerr
       end
     end
 
-    # TODO: ugly code. Refactor
-    def app_stability_score(app_stats)
-      score = app_stats.stability_score
-      stability_level = app_stats.stability_level(score: score)
-      score_color = app_stability_level(stability_level)
+    def app_stability_score(app)
+      level = app.stability_level
+      score_color = app_stability_level(level)
       content_tag :strong, class: "stability-score text-#{score_color}" do
-        "#{(score * 100).round}%"
+        "#{app.stability_score} %"
       end
     end
 

@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129201030) do
+ActiveRecord::Schema.define(version: 20170310154632) do
 
   create_table "gingerr_apps", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "stability_score"
+    t.integer  "signal_frequency"
   end
 
   create_table "gingerr_endpoints", force: :cascade do |t|

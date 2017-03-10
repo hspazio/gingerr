@@ -51,10 +51,31 @@ module Gingerr
       assert_not_equal '0.0 sig/h', freq
     end
 
-    test 'count recent signals' do
+    test '#stability_level is :ok if 100% stability score' do
       app = gingerr_apps(:app_elephant)
-      recent_signals = app.recent_signals
-      assert_equal recent_signals.count, app.count_recent_signals
+      app.stubs(stability_score: 100)
+      assert_equal :ok, app.stability_level
+    end
+
+    test '#stability_level is :unstable if stability score not high enough' do
+      app = gingerr_apps(:app_elephant)
+      app.stubs(stability_score: 71)
+      assert_equal :unstable, app.stability_level
+
+      app.stubs(stability_score: 99)
+      assert_equal :unstable, app.stability_level
+    end
+
+    test '#stability_level is :critical if stability score is low' do
+      app = gingerr_apps(:app_elephant)
+      app.stubs(stability_score: 20)
+      assert_equal :critical, app.stability_level
+
+      app.stubs(stability_score: 0)
+      assert_equal :critical, app.stability_level
+
+      app.stubs(stability_score: 70)
+      assert_equal :critical, app.stability_level
     end
   end
 end

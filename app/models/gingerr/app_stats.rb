@@ -4,16 +4,12 @@ module Gingerr
       @app = app
     end
 
-    def stability_score
-      @app.count_recent_success_signals.to_f / @app.count_recent_signals
+    def stability_level(score: stability_score)
+      @app.stability_level
     end
 
-    def stability_level(score: stability_score)
-      case score
-      when 1 then :ok
-      when (0..0.7) then :critical
-      when (0.7..1) then :unstable
-      end
+    def stability_score
+      @app.stability_score || 0
     end
 
     def recent_signals_timeline

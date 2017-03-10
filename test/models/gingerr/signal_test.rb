@@ -100,5 +100,25 @@ module Gingerr
       signal = gingerr_signals(:signal_monkey_1)
       assert_equal 'fs@forest-server (122.230.1.25)', signal.endpoint_description
     end
+
+    test 'triggers caching of app stability score when new signal is created' do
+      app = gingerr_apps(:app_elephant)
+      endpoint = gingerr_endpoints(:endpoint_1)
+
+      previous_stability_score = app.stability_score
+      SuccessSignal.create!(app: app, endpoint: endpoint, pid: 123)
+
+      assert previous_stability_score != app.stability_score
+    end
+
+    test 'triggers caching of app signal frequency when new signal is created' do
+      app = gingerr_apps(:app_elephant)
+      endpoint = gingerr_endpoints(:endpoint_1)
+
+      previous_signal_frequency = app.signal_frequency
+      SuccessSignal.create!(app: app, endpoint: endpoint, pid: 123)
+
+      assert app.signal_frequency != previous_signal_frequency
+    end
   end
 end
