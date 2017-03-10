@@ -20,6 +20,7 @@ gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'syntax-highlighter-rails'
+gem 'groupdate'
 
 group :test do
   gem 'mocha'

@@ -8,6 +8,11 @@ module Gingerr
     validates :backtrace, presence: true
 
     scope :by_name, ->(name) { where(name: name).order(:created_at) }
+    scope :last_month, -> { where("gingerr_errors.created_at >= '#{1.month.ago}'") }
+    scope :by_app, ->(app) { 
+      joins(:signal, signal: :app)
+      .where(gingerr_signals: { app_id: app}) 
+    }
 
     def self.first_seen_by_name(name)
       by_name(name).pluck(:created_at).first

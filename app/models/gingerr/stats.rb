@@ -14,5 +14,15 @@ module Gingerr
         }.to_a
       end
     end
+
+    class RecentErrors
+      def initialize(errors = Gingerr::Error)
+        @errors = errors
+      end
+
+      def call
+        @errors.last_month.group(:name).group_by_day('gingerr_errors.created_at').count
+      end
+    end
   end
 end
