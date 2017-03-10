@@ -30,6 +30,17 @@ def parse_json(data)
 end
 
 module Gingerr
+  class IntegrationTest < ActionDispatch::IntegrationTest
+
+    def http_basic_auth!(username, password)
+      basic = ActionController::HttpAuthentication::Basic 
+      credentials = basic.encode_credentials(username, password)
+      { 'Authorization' => credentials }
+    end
+  end
+end
+
+module Gingerr
   class TestCase < ActiveSupport::TestCase
     def assert_any_errors(object, attribute)
       object.valid?

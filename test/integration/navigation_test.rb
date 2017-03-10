@@ -1,21 +1,26 @@
 require 'test_helper'
 
-class NavigationTest < ActionDispatch::IntegrationTest
-  test 'should display dashboard' do
-    get '/gingerr'
-    assert_response :success
-  end
+module Gingerr
+  class NavigationTest < IntegrationTest
+    setup do
+      @env = http_basic_auth!('admin', 'admin')
+    end
 
-  test 'should display signal page' do
-    signal = gingerr_signals(:signal_monkey_1)
-    get "/gingerr/signals/#{signal.id}"
+    test 'displays dashboard' do
+      get '/gingerr', env: @env
+      assert_response :success
+    end
 
-    assert_response :success
-  end
+    test 'displays signal page' do
+      signal = gingerr_signals(:signal_monkey_1)
+      get "/gingerr/signals/#{signal.id}", env: @env
 
-  test 'should display all errors page' do
-    get '/gingerr/errors'
-    assert_response :success
+      assert_response :success
+    end
+
+    test 'displays all errors page' do
+      get '/gingerr/errors', env: @env
+      assert_response :success
+    end
   end
 end
-
