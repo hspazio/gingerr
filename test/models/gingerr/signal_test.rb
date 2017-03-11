@@ -3,84 +3,68 @@ require 'minitest/mock'
 
 module Gingerr
   class SignalTest < ActiveSupport::TestCase
-    setup do
-      @signal = Gingerr::Signal.new
-    end
-
     test 'returns STI class for provided type' do
-      assert_equal 'Gingerr::SuccessSignal', @signal.class.class_for_type(:success)
-      assert_equal 'Gingerr::ErrorSignal', @signal.class.class_for_type(:error)
+      assert_equal 'Gingerr::SuccessSignal', Gingerr::Signal.class_for_type(:success)
+      assert_equal 'Gingerr::ErrorSignal', Gingerr::Signal.class_for_type(:error)
     end
 
     test 'type attribute not valid if nil' do
-      @signal.type = nil
-      @signal.valid?
-      assert_not_empty @signal.errors[:type]
+      signal = build(:success_signal, type: nil)
+      signal.valid?
+      assert_not_empty signal.errors[:type]
     end
 
     test 'type attribute not valid if not supported' do
-      @signal.type = 'UnknownType'
-      @signal.valid?
-      assert_not_empty @signal.errors[:type]
+      signal = build(:success_signal, type: 'UnknownType')
+      signal.valid?
+      assert_not_empty signal.errors[:type]
     end
 
-    test 'type attribute valid if SuccessSignal' do
-      @signal.type = 'Gingerr::SuccessSignal'
-      @signal.valid?
-      assert_empty @signal.errors[:type]
+    test 'type attribute valid if ErrorSignal' do
+      signal = build(:error_signal)
+      signal.valid?
+      assert_empty signal.errors[:type]
     end
 
     test 'PID attribute not valid if nil' do
-      @signal.pid = nil
-      @signal.valid?
-      assert_not_empty @signal.errors[:pid]
+      signal = build(:error_signal, pid: nil)
+      signal.valid?
+      assert_not_empty signal.errors[:pid]
     end
 
     test 'PID not valid if string' do
-      @signal.pid = ''
-      @signal.valid?
-      assert_not_empty @signal.errors[:pid]
+      signal = build(:success_signal, pid: '')
+      signal.valid?
+      assert_not_empty signal.errors[:pid]
     end
 
     test 'PID not valid if zero' do
-      @signal.pid = 0
-      @signal.valid?
-      assert_not_empty @signal.errors[:pid]
+      signal = build(:success_signal, pid: 0)
+      signal.valid?
+      assert_not_empty signal.errors[:pid]
     end
 
     test 'PID valid if numeric non zero' do
-      @signal.pid = 123
-      @signal.valid?
-      assert_empty @signal.errors[:pid]
+      signal = build(:error_signal, pid: 123)
+      signal.valid?
+      assert_empty signal.errors[:pid]
     end
 
     test 'not valid if not belonging to an app' do
-      @signal.app = nil
-      @signal.valid?
-      assert_not_empty @signal.errors[:app]
-    end
-
-    test 'valid if belongs to app' do
-      @signal.app = Gingerr::App.new(name: 'test')
-      @signal.valid?
-      assert_empty @signal.errors[:app]
+      signal = build(:success_signal, app: nil)
+      signal.valid?
+      assert_not_empty signal.errors[:app]
     end
 
     test 'not valid if not belonging to an endpoint' do
-      @signal.endpoint = nil
-      @signal.valid?
-      assert_not_empty @signal.errors[:endpoint]
-    end
-
-    test 'valid if belongs to endpoint' do
-      @signal.endpoint = gingerr_endpoints(:endpoint_1)
-      @signal.valid?
-      assert_empty @signal.errors[:endpoint]
+      signal = build(:error_signal, endpoint: nil)
+      signal.valid?
+      assert_not_empty signal.errors[:endpoint]
     end
 
     test 'responds to app_name' do
-      @signal.app = Gingerr::App.new(name: 'test')
-      assert_equal 'test', @signal.app_name
+      signal = build(:success_signal, app: build(:app, name: 'test app'))
+      assert_equal 'test app', signal.app_name
     end
 
     test 'returns true to ErrorSignal#error?' do
@@ -97,28 +81,17 @@ module Gingerr
     end
 
     test 'delegates endpoint description to endpoint' do
-      signal = gingerr_signals(:signal_monkey_1)
-      assert_equal 'fs@forest-server (122.230.1.25)', signal.endpoint_description
+      endpoint = build(:endpoint, ip: '123.123.123.123', login: 'login', hostname: 'hostname')
+      signal = build(:success_signal, endpoint: endpoint)
+      assert_equal 'login@hostname (123.123.123.123)', signal.endpoint_description
     end
 
-    test 'triggers caching of app stability score when new signal is created' do
-      app = gingerr_apps(:app_elephant)
-      endpoint = gingerr_endpoints(:endpoint_1)
+    test 'triggers caching of app stats when new signal is created' do
+      app = create(:app, stability_score: 23, signal_frequency: 123456)
+      create(:success_signal, app: app)
 
-      previous_stability_score = app.stability_score
-      SuccessSignal.create!(app: app, endpoint: endpoint, pid: 123)
-
-      assert previous_stability_score != app.stability_score
-    end
-
-    test 'triggers caching of app signal frequency when new signal is created' do
-      app = gingerr_apps(:app_elephant)
-      endpoint = gingerr_endpoints(:endpoint_1)
-
-      previous_signal_frequency = app.signal_frequency
-      SuccessSignal.create!(app: app, endpoint: endpoint, pid: 123)
-
-      assert app.signal_frequency != previous_signal_frequency
+      assert_not_equal 23, app.stability_score
+      assert_not_equal 123456, app.signal_frequency
     end
   end
 end

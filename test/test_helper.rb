@@ -24,9 +24,14 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 require 'mocha/mini_test'
+require File.expand_path("../factories", __FILE__)
 
 def parse_json(data)
   JSON.parse(data, symbolize_names: true)
+end
+
+class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
 end
 
 module Gingerr

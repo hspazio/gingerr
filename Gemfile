@@ -21,6 +21,7 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'syntax-highlighter-rails'
 gem 'groupdate'
+gem 'factory_girl'
 
 group :test do
   gem 'mocha'

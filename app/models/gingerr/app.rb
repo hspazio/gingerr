@@ -10,7 +10,6 @@ module Gingerr
       signals.limit(limit)
     end
 
-
     def current_signal_state
       current_signal && current_signal.state
     end
