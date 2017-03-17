@@ -7,67 +7,25 @@ module Gingerr
     end
 
     test '.first_seen_by_name' do
-      signal = gingerr_signals(:signal_monkey_1)
-      Gingerr::Error.create!(
-        signal: signal,
-        name: 'the-error', 
-        file: 'the-file', 
-        message: 'the-message',
-        backtrace: 'the-backtrace',
-        created_at: 1.day.ago.to_date
-      )
-      Gingerr::Error.create!(
-        signal: signal,
-        name: 'the-error', 
-        file: 'the-file', 
-        message: 'the-message',
-        backtrace: 'the-backtrace',
-        created_at: 2.days.ago.to_date
-      )
+      signal = build_stubbed(:error_signal)
+      create(:error, created_at: 1.day.ago.to_date,  name: 'the-error', signal: signal)
+      create(:error, created_at: 2.days.ago.to_date, name: 'the-error', signal: signal)
 
       assert_equal 2.days.ago.to_date, Gingerr::Error.first_seen_by_name('the-error')
     end
 
     test '.last_seen_by_name' do
-      signal = gingerr_signals(:signal_monkey_1)
-      Gingerr::Error.create!(
-        signal: signal,
-        name: 'the-error', 
-        file: 'the-file', 
-        message: 'the-message',
-        backtrace: 'the-backtrace',
-        created_at: 1.day.ago.to_date
-      )
-      Gingerr::Error.create!(
-        signal: signal,
-        name: 'the-error', 
-        file: 'the-file', 
-        message: 'the-message',
-        backtrace: 'the-backtrace',
-        created_at: 2.days.ago.to_date
-      )
+      signal = build_stubbed(:error_signal)
+      create(:error, created_at: 1.day.ago.to_date,  name: 'the-error', signal: signal)
+      create(:error, created_at: 2.days.ago.to_date, name: 'the-error', signal: signal)
 
       assert_equal 1.day.ago.to_date, Gingerr::Error.last_seen_by_name('the-error')
     end
 
     test '.count_by_name' do
-      signal = gingerr_signals(:signal_monkey_1)
-      Gingerr::Error.create!(
-        signal: signal,
-        name: 'the-error', 
-        file: 'the-file', 
-        message: 'the-message',
-        backtrace: 'the-backtrace',
-        created_at: 1.day.ago.to_date
-      )
-      Gingerr::Error.create!(
-        signal: signal,
-        name: 'the-error', 
-        file: 'the-file', 
-        message: 'the-message',
-        backtrace: 'the-backtrace',
-        created_at: 2.days.ago.to_date
-      )
+      signal = build_stubbed(:error_signal)
+      create(:error, name: 'the-error', signal: signal)
+      create(:error, name: 'the-error', signal: signal)
 
       assert_equal 2, Gingerr::Error.count_by_name('the-error')
     end
